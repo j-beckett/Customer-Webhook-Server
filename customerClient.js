@@ -285,7 +285,7 @@ function myFunc() {
         }
     ]
 
-    axios.post('http://localhost:3001/customer', custArr[num])
+    axios.post('http://localhost:5000/customer', custArr[num])
         .then(function (response) {
             console.log(response.status);
         })

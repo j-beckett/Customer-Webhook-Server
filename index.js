@@ -3,8 +3,8 @@ const express = require("express")
 
 // Initialize express and define a port
 const app = express()
-const PORT = 3001
-const bodyParser = require("body-parser")
+const PORT = 5000;
+const bodyParser = require("body-parser");
 const pgDB = require("./custDBseed.js");
 
 const origPlatform = "Treez";
@@ -100,4 +100,4 @@ app.post("/customer" , (req, res) => {
 });
 
 // Start express on the defined port
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`))
+app.listen(process.env.PORT || 5000, () => console.log(`🚀 Server running on port ${PORT}`))
