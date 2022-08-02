@@ -5,7 +5,7 @@ const express = require("express")
 const app = express()
 const PORT = 3001
 const bodyParser = require("body-parser")
-const pgDB = require("./CustDBseed.js");
+const pgDB = require("./custDBseed.js");
 
 const origPlatform = "Treez";
 
