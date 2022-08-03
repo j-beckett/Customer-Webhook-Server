@@ -84,19 +84,31 @@ app.get('/', (req, res) => {
 })
   
 app.post("/customer" , (req, res) => {
+
+try{
+
+    console.log("req is:");
+    console.log(req);
+    console.log("req BODY is:");
+    console.log(req.body);
+
+
     let incomingData = req.body.data;
 
 
     formatIt(incomingData);
-   // console.log(incomingData);
-    
+    // console.log(incomingData);
 
+  //a change
 
+      res.status(200).end() // Responding is important
+  }
 
+  catch(err){
+    console.log(err)
 
-//a change
-
-    res.status(200).end() // Responding is important
+    res.status(400).end() // Something bad happened 
+  }
 });
 
 // Start express on the defined port
