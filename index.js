@@ -30,6 +30,7 @@ async function formatIt(object) {
       customerMemTypes += " , ";
     });
     
+    console.log(typeof(object.birthday));
     
     const itemForDB = [
         null,

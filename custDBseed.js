@@ -33,7 +33,27 @@ async function insertData(custData, pool){
         //assumption: this fits in the registered name to billing first name / last name. could be changed
         try{
             const response = await client.query(
-                "INSERT INTO public.\"node_customers_test\" (\"WooCustomerId\", \"Email\", \"FirstName\", \"LastName\", treez_customer_id, \"BillingAddress_FirstName\", \"BillingAddress_LastName\", \"BillingAddress_State\", \"BillingAddress_City\", \"BillingAddress_Address1\", \"BillingAddress_Address2\" , \"BillingAddress_Postcode\", \"BillingAddress_Email\", \"OriginalPlatform\", \"VerificationStatus\", gender, birthdate, banned, drivers_license_number, drivers_license_expiration, permit_expiration, warning_1, warning_2, status, nickname, notes, membership_details  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27) ON CONFLICT (treez_customer_id) DO UPDATE SET \"WooCustomerId\" = EXCLUDED.\"WooCustomerId\" , \"Email\" = EXCLUDED.\"Email\" , \"FirstName\" = EXCLUDED.\"FirstName\" , \"LastName\" = EXCLUDED.\"LastName\" , \"Role\"  = EXCLUDED.\"Role\" , \"Username\"  = EXCLUDED.\"Username\"  " ,
+                `INSERT INTO public.\"node_customers_test\" (\"WooCustomerId\", \"Email\",
+                 \"FirstName\", \"LastName\", treez_customer_id, \"BillingAddress_FirstName\", 
+                 \"BillingAddress_LastName\", \"BillingAddress_State\", \"BillingAddress_City\",
+                  \"BillingAddress_Address1\", \"BillingAddress_Address2\" , \"BillingAddress_Postcode\",
+                   \"BillingAddress_Email\", \"OriginalPlatform\", \"VerificationStatus\", gender, 
+                   birthdate, banned, drivers_license_number, drivers_license_expiration, 
+                   permit_expiration, warning_1, warning_2, status, nickname, notes, membership_details ) 
+                   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18,
+                     $19, $20, $21, $22, $23, $24, $25, $26, $27) 
+                     ON CONFLICT (treez_customer_id) 
+                     DO UPDATE SET 
+                     \"WooCustomerId\" = EXCLUDED.\"WooCustomerId\" , \"Email\" = EXCLUDED.\"Email\" , 
+                     \"FirstName\" = EXCLUDED.\"FirstName\" , \"LastName\" = EXCLUDED.\"LastName\" , 
+                     \"Role\"  = EXCLUDED.\"Role\" , \"Username\"  = EXCLUDED.\"Username\" , 
+                     \"VerificationStatus\" = EXCLUDED.\"VerificationStatus\" , gender = EXCLUDED.gender , 
+                     birthdate = EXCLUDED.birthdate , banned = EXCLUDED.banned , drivers_license_number = EXCLUDED.drivers_license_number ,
+                    drivers_license_expiration = EXCLUDED.drivers_license_expiration , 
+                    permit_expiration = EXCLUDED.permit_expiration, warning_1 = EXCLUDED.warning_1, 
+                    warning_2 = EXCLUDED.warning_2, status = EXCLUDED.status, nickname = EXCLUDED.nickname,
+                    notes = EXCLUDED.notes, membership_details = EXCLUDED.membership_details
+                    ` ,
                 custData
             );
 

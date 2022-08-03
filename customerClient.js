@@ -3,7 +3,7 @@ const axios = require('axios');
 const sleep = require('util').promisify(setTimeout)
 let i = 1;
 
-let num = 0;
+let num = 3;
 
 function myFunc() {
     const custArr = [
