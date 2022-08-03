@@ -92,8 +92,9 @@ try{
     console.log("req BODY is:");
     console.log(req.body);
 
-    if (req.body.test === undefined){
+    if (req.body.test === 'test'){
       res.status(201).end() // Responding is important
+      return;
     }
 
     let incomingData = req.body.data;
