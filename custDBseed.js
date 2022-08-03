@@ -45,7 +45,15 @@ async function insertData(custData, pool){
                      ON CONFLICT (treez_customer_id) 
                      DO UPDATE SET 
                      \"WooCustomerId\" = EXCLUDED.\"WooCustomerId\" , \"Email\" = EXCLUDED.\"Email\" , 
-                     \"FirstName\" = EXCLUDED.\"FirstName\" , \"LastName\" = EXCLUDED.\"LastName\" , 
+                     \"FirstName\" = EXCLUDED.\"FirstName\" , \"LastName\" = EXCLUDED.\"LastName\" ,
+                     \"BillingAddress_FirstName\" = EXCLUDED.\"BillingAddress_FirstName\", 
+                     \"BillingAddress_LastName\" =  EXCLUDED.\"BillingAddress_LastName\",
+                     \"BillingAddress_State\" = EXCLUDED.\"BillingAddress_State\", 
+                     \"BillingAddress_City\" = EXCLUDED.\"BillingAddress_City\",
+                     \"BillingAddress_Address1\" = EXCLUDED.\"BillingAddress_Address1\", 
+                     \"BillingAddress_Address2\" = EXCLUDED.\"BillingAddress_Address2\", 
+                     \"BillingAddress_Postcode\" =  EXCLUDED.\"BillingAddress_Postcode\",
+                     \"BillingAddress_Email\" = EXCLUDED.\"BillingAddress_Email\",
                      \"Role\"  = EXCLUDED.\"Role\" , \"Username\"  = EXCLUDED.\"Username\" , 
                      \"VerificationStatus\" = EXCLUDED.\"VerificationStatus\" , gender = EXCLUDED.gender , 
                      birthdate = EXCLUDED.birthdate , banned = EXCLUDED.banned , drivers_license_number = EXCLUDED.drivers_license_number ,
