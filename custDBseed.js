@@ -19,7 +19,7 @@ const pool = new Pool({
 });
 
 
-const TABLE_NAME = "public.\"node_customers_test\"";
+const TABLE_NAME = "public.\"customers_sync\"";
 //
 
 async function insertData(custData, pool){
@@ -33,19 +33,20 @@ async function insertData(custData, pool){
         //assumption: this fits in the registered name to billing first name / last name. could be changed
         try{
             const response = await client.query(
-                `INSERT INTO public.\"node_customers_test\" (\"WooCustomerId\", \"Email\",
-                 \"FirstName\", \"LastName\", treez_customer_id, \"BillingAddress_FirstName\", 
+                `INSERT INTO  ${TABLE_NAME} (\"WooCustomerId\", \"Email\",
+                 \"FirstName\", \"LastName\", \"Username\" , treez_customer_id, \"BillingAddress_FirstName\", 
                  \"BillingAddress_LastName\", \"BillingAddress_State\", \"BillingAddress_City\",
                   \"BillingAddress_Address1\", \"BillingAddress_Address2\" , \"BillingAddress_Postcode\",
                    \"BillingAddress_Email\", \"OriginalPlatform\", \"VerificationStatus\", gender, 
                    birthdate, banned, drivers_license_number, drivers_license_expiration, 
                    permit_expiration, warning_1, warning_2, status, nickname, notes, membership_details ) 
                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18,
-                     $19, $20, $21, $22, $23, $24, $25, $26, $27) 
+                     $19, $20, $21, $22, $23, $24, $25, $26, $27, $28) 
                      ON CONFLICT (treez_customer_id) 
                      DO UPDATE SET 
                      \"WooCustomerId\" = EXCLUDED.\"WooCustomerId\" , \"Email\" = EXCLUDED.\"Email\" , 
                      \"FirstName\" = EXCLUDED.\"FirstName\" , \"LastName\" = EXCLUDED.\"LastName\" ,
+                     \"Username\" = EXCLUDED.\"Username\" ,
                      \"BillingAddress_FirstName\" = EXCLUDED.\"BillingAddress_FirstName\", 
                      \"BillingAddress_LastName\" =  EXCLUDED.\"BillingAddress_LastName\",
                      \"BillingAddress_State\" = EXCLUDED.\"BillingAddress_State\", 
@@ -54,7 +55,7 @@ async function insertData(custData, pool){
                      \"BillingAddress_Address2\" = EXCLUDED.\"BillingAddress_Address2\", 
                      \"BillingAddress_Postcode\" =  EXCLUDED.\"BillingAddress_Postcode\",
                      \"BillingAddress_Email\" = EXCLUDED.\"BillingAddress_Email\",
-                     \"Role\"  = EXCLUDED.\"Role\" , \"Username\"  = EXCLUDED.\"Username\" , 
+                     \"Role\"  = EXCLUDED.\"Role\" , 
                      \"VerificationStatus\" = EXCLUDED.\"VerificationStatus\" , gender = EXCLUDED.gender , 
                      birthdate = EXCLUDED.birthdate , banned = EXCLUDED.banned , drivers_license_number = EXCLUDED.drivers_license_number ,
                     drivers_license_expiration = EXCLUDED.drivers_license_expiration , 

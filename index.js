@@ -23,11 +23,11 @@ async function formatIt(object) {
     //actually should be solved to check if primary == true. to do 
 
 
-    let customerMemTypes = "";
+    let customerMemTypes = `'${object.patient_type}' , `; //formatting for the Woo DB
 
     object.customer_groups.forEach((custType) => {
-      customerMemTypes += custType;
-      customerMemTypes += " , ";
+      customerMemTypes += ` '${custType}' ,`;
+      //customerMemTypes += " , ";
     });
     
     console.log(typeof(object.birthday));
@@ -37,6 +37,7 @@ async function formatIt(object) {
         object.email,
         object.first_name,
         object.last_name,
+        object.email,
         object.customer_id,
         object.first_name, //billing first name
         object.last_name,  //billing last name  //no company field in treez
@@ -59,7 +60,7 @@ async function formatIt(object) {
         object.status,
         object.nickname,
         object.notes,
-        object.patient_type + " , " + customerMemTypes
+        customerMemTypes
     ];
 
     pgDB.connectToDB(itemForDB);
@@ -88,10 +89,10 @@ app.post("/customer" , (req, res) => {
 
 try{
 
-    console.log("req is:");
-    console.log(req);
-    console.log("req BODY is:");
-    console.log(req.body);
+    // console.log("req is:");
+    // console.log(req);
+    // console.log("req BODY is:");
+    // console.log(req.body);
 
     if (req.body.test === 'test'){
       res.status(201).end() // Responding is important
@@ -99,6 +100,7 @@ try{
     }
 
     let incomingData = req.body.data;
+    //const userRole = 
 
 
     formatIt(incomingData);

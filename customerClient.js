@@ -3,7 +3,7 @@ const axios = require('axios');
 const sleep = require('util').promisify(setTimeout)
 let i = 1;
 
-let num = 3;
+let num = 1;
 
 function myFunc() {
     const custArr = [
@@ -25,7 +25,7 @@ function myFunc() {
             "drivers_license_expiration": "2022-04-07",
             "state_medical_id": "N/A",
             "permit_expiration": "N/A",
-            "email": "sample@test.com",
+            "email": "samplejen@test.com",
             "phone": "6282032916",
             "notes": "loyal customer\nprefers flower - indica dominant hybrids",
             "physician_first_name": null,
@@ -94,7 +94,7 @@ function myFunc() {
             "status": "ACTIVE",
             "verification_status": "VERIFIED",
             "verification_reasons": [],
-            "customer_id": "1531",
+            "customer_id": "1155213",
             "first_name": "Jen",
             "middle_name": "",
             "nickname": "",
@@ -104,7 +104,7 @@ function myFunc() {
             "drivers_license_expiration": "2022-12-12",
             "state_medical_id": "N/A",
             "permit_expiration": "N/A",
-            "email": "sample@test.com",
+            "email": "fireycandy@hotmail.com",
             "phone": "6282032916",
             "notes": "loyal customer\nprefers flower - indica dominant hybrids",
             "physician_first_name": null,
@@ -244,7 +244,7 @@ function myFunc() {
                 "drivers_license_expiration": "2023-07-04",
                 "state_medical_id": "N/A",
                 "permit_expiration": "N/A",
-                "email": "kalestar@aol.com",
+                "email": "hellothere123@hotmail.com",
                 "phone": "8057985583",
                 "notes": "N/A",
                 "physician_first_name": null,
