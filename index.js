@@ -36,7 +36,7 @@ async function formatIt(object) {
     
     //console.log(typeof(object.birthday));
     
-    let customFields = [
+    let customField = [
       {
           "Key": "id_verification_status",
           "Value": object.verification_status
@@ -58,12 +58,40 @@ async function formatIt(object) {
           "Value": object.drivers_license
       },
       {
+        "Key": "driver_license_expiry",
+        "Value": object.drivers_license_expiration
+      },
+      {
           "Key": "membership_details",
           "Value": customerMemTypes
+      },
+      {
+        "Key": "membership_details",
+        "Value": customerMemTypes
+      },
+      {
+        "Key": "membership_details",
+        "Value": customerMemTypes
+      },
+      {
+        "Key": "medical_document_expiry",
+        "Value":  object.permit_expiration
+      },
+      {
+        "Key": "notes",
+        "Value":  object.notes
+      },
+      {
+        "Key": "cust_nickname",
+        "Value":  object.nickname
+      },
+      {
+        "Key": "is_banned",
+        "Value":  Boolean(object.banned)
       }
   ];
 
-  customFields = JSON.stringify(customFields);
+  const customFields = JSON.stringify(customField);
 
     const itemForDB = [
         null, //wooCommid - this will be set upon first sync with Skyvia
