@@ -67,6 +67,7 @@ async function insertData(custData, pool){
                 custData
             );
 
+            console.log("RESPONSE IS: ");
             console.log(response);
         }
 
