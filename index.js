@@ -12,28 +12,61 @@ const origPlatform = "Treez";
 // Tell express to use body-parser's JSON parsing
 app.use(bodyParser.json())
 
-
+//object is one customer coming in from the Treez webhook. 
 async function formatIt(object) {
  
-    console.log(object.verification_status);
-    console.log(object.first_name);
+    // console.log(object.verification_status);
+    // console.log(object.first_name);
    // console.log(object.addresses);
+
+   //TODO
     //assumption: Treez does not define an address as "billing address"
     //so here, I will take the first address on the record as "billing".
-    //actually should be solved to check if primary == true. to do 
+    //actually should be solved to check if primary == true. 
 
 
+    //this formats the patient type and customer group into one nice string - in the format required so that
+    //the WooComm DB will be able to recognize it. 
+    //in the webhook response, membership data is spread across two Key-value pairs- this concats it.
     let customerMemTypes = `'${object.patient_type}' , `; //formatting for the Woo DB
-
     object.customer_groups.forEach((custType) => {
       customerMemTypes += ` '${custType}' ,`;
       //customerMemTypes += " , ";
     });
     
-    console.log(typeof(object.birthday));
+    //console.log(typeof(object.birthday));
     
+    let customFields = [
+      {
+          "Key": "id_verification_status",
+          "Value": object.verification_status
+      },
+      {
+          "Key": "original_platform",
+          "Value": origPlatform
+      },
+      {
+          "Key": "birthday",
+          "Value": object.birthday
+      },
+      {
+          "Key": "gender",
+          "Value": object.gender
+      },
+      {
+          "Key": "driver_license_number",
+          "Value": object.drivers_license
+      },
+      {
+          "Key": "membership_details",
+          "Value": customerMemTypes
+      }
+  ];
+
+  customFields = JSON.stringify(customFields);
+
     const itemForDB = [
-        null,
+        null, //wooCommid - this will be set upon first sync with Skyvia
         object.email,
         object.first_name,
         object.last_name,
@@ -60,23 +93,15 @@ async function formatIt(object) {
         object.status,
         object.nickname,
         object.notes,
-        customerMemTypes
+        customerMemTypes, 
+        customFields
     ];
+
+    
 
     pgDB.connectToDB(itemForDB);
 
-  //formatting data for insertion to DB. Currently DB insertion not working 
-//   let itemForDB = [
-//     product.product_id, 
-//     product.product_status,
-//     product.product_configurable_fields.name,
-//     product.product_configurable_fields.brand,
-//     product.pricing.price_type,
-//     product.pricing.price_sell
-//   ];
 
-  //send the formatted object off to this function to upsert the db
-  //await pgDB.connectToDB(itemForDB);
 }
 
 

@@ -39,9 +39,9 @@ async function insertData(custData, pool){
                   \"BillingAddress_Address1\", \"BillingAddress_Address2\" , \"BillingAddress_Postcode\",
                    \"BillingAddress_Email\", \"OriginalPlatform\", \"VerificationStatus\", gender, 
                    birthdate, banned, drivers_license_number, drivers_license_expiration, 
-                   permit_expiration, warning_1, warning_2, status, nickname, notes, membership_details ) 
+                   permit_expiration, warning_1, warning_2, status, nickname, notes, membership_details, \"CustomFields\"  ) 
                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18,
-                     $19, $20, $21, $22, $23, $24, $25, $26, $27, $28) 
+                     $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29) 
                      ON CONFLICT (treez_customer_id) 
                      DO UPDATE SET 
                      \"WooCustomerId\" = EXCLUDED.\"WooCustomerId\" , \"Email\" = EXCLUDED.\"Email\" , 
@@ -61,7 +61,8 @@ async function insertData(custData, pool){
                     drivers_license_expiration = EXCLUDED.drivers_license_expiration , 
                     permit_expiration = EXCLUDED.permit_expiration, warning_1 = EXCLUDED.warning_1, 
                     warning_2 = EXCLUDED.warning_2, status = EXCLUDED.status, nickname = EXCLUDED.nickname,
-                    notes = EXCLUDED.notes, membership_details = EXCLUDED.membership_details
+                    notes = EXCLUDED.notes, membership_details = EXCLUDED.membership_details, 
+                    \"CustomFields\" = EXCLUDED.\"CustomFields\" 
                     ` ,
                 custData
             );
