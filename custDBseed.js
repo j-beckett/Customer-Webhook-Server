@@ -66,7 +66,7 @@ async function insertData(custData, pool){
                     permit_expiration = EXCLUDED.permit_expiration, warning_1 = EXCLUDED.warning_1, 
                     warning_2 = EXCLUDED.warning_2, status = EXCLUDED.status, nickname = EXCLUDED.nickname,
                     notes = EXCLUDED.notes, membership_details = EXCLUDED.membership_details, 
-                    \"CustomFields\" = EXCLUDED.\"CustomFields\" 
+                    \"CustomFields\" = EXCLUDED.\"CustomFields\",  referral_source = EXCLUDED.referral_source
                     ` ,
                 custData
             );
