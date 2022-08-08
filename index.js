@@ -122,7 +122,20 @@ async function formatIt(object) {
         object.nickname,
         object.notes,
         customerMemTypes, 
-        customFields
+        customFields,
+        object.state_medical_id,
+        object.physician_first_name,
+        object.physician_last_name,
+        object.physician_license,
+        object.physician_address,
+        object.physician_phone,
+        object.is_caregiver,
+        object.caregiver_license_number,
+        object.caregiver_name_1,
+        object.caregiver_name_2,
+        object.caregiver_details,
+        object.merged_customer_ids,
+        object.merged_into_customer_id
     ];
 
     
