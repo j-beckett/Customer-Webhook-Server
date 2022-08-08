@@ -35,7 +35,8 @@ async function formatIt(object) {
     });
     
     //console.log(typeof(object.birthday));
-    
+    console.log("HEREEE");
+    console.log(object.referral_source);
     let customField = [
       {
           "Key": "id_verification_status",

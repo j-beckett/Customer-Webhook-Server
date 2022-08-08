@@ -94,7 +94,7 @@ function myFunc() {
             "status": "ACTIVE",
             "verification_status": "VERIFIED",
             "verification_reasons": [],
-            "customer_id": "77778",
+            "customer_id": "777798",
             "first_name": "Jen",
             "middle_name": "",
             "nickname": "aNickname",
