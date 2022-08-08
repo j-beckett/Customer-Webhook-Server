@@ -135,7 +135,8 @@ async function formatIt(object) {
         object.caregiver_name_2,
         object.caregiver_details,
         object.merged_customer_ids,
-        object.merged_into_customer_id
+        object.merged_into_customer_id,
+        object.referral_source
     ];
 
     

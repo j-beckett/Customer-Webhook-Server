@@ -41,9 +41,11 @@ async function insertData(custData, pool){
                    birthdate, banned, drivers_license_number, drivers_license_expiration, 
                    permit_expiration, warning_1, warning_2, status, nickname, notes, membership_details, \"CustomFields\", state_medical_id,
                    physician_first_name, physician_last_name, physician_license, physician_address, physician_phone, is_caregiver,
-                   caregiver_license_number, caregiver_name_1, caregiver_name_2, caregiver_details, merged_customer_ids, merged_into_customer_id) 
+                   caregiver_license_number, caregiver_name_1, caregiver_name_2, caregiver_details, merged_customer_ids, merged_into_customer_id,
+                   referral_source) 
                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18,
-                     $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $40, $41, $42) 
+                    $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36,
+                    $37, $38, $39, $40, $41, $42, $43) 
                      ON CONFLICT (treez_customer_id) 
                      DO UPDATE SET 
                      \"WooCustomerId\" = EXCLUDED.\"WooCustomerId\" , \"Email\" = EXCLUDED.\"Email\" , 
