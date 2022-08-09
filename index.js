@@ -89,6 +89,10 @@ async function formatIt(object) {
       {
         "Key": "is_banned",
         "Value":  Boolean(object.banned)
+      }, 
+      {
+        "Key": "referral_source",
+        "Value":  object.referral_source
       }
   ];
 
