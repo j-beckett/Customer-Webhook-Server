@@ -54,7 +54,7 @@ async function insertData(custData, pool){
                     $37, $38, $39, $40, $41, $42) 
                      ON CONFLICT (treez_customer_id) 
                      DO UPDATE SET 
-                     \"WooCustomerId\" = EXCLUDED.\"WooCustomerId\" , \"Email\" = EXCLUDED.\"Email\" , 
+                     \"Email\" = EXCLUDED.\"Email\" , 
                      \"FirstName\" = EXCLUDED.\"FirstName\" , \"LastName\" = EXCLUDED.\"LastName\" ,
                      \"Username\" = EXCLUDED.\"Username\" ,
                      \"BillingAddress_FirstName\" = EXCLUDED.\"BillingAddress_FirstName\", 
