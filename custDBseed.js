@@ -11,11 +11,17 @@ require('custom-env').env();
 
 //instantiate pool to connect to the database, connection settings are passed in
 const pool = new Pool({
-    user: POSTGRESQL_DB_USER,
-    host: POSTGRESQL_DB_HOST,
-    database: POSTGRESQL_DB ,
-    password: POSTGRESQL_DB_PASSWORD,
-    port: POSTGRESQL_DB_PORT
+    // user: POSTGRESQL_DB_USER,
+    // host: POSTGRESQL_DB_HOST,
+    // database: POSTGRESQL_DB ,
+    // password: POSTGRESQL_DB_PASSWORD,
+    // port: POSTGRESQL_DB_PORT
+
+    user: "postgres",
+    host: "postgres.chtwubdr7alu.us-west-2.rds.amazonaws.com",
+    database: "sespe-sync-1",
+    password: "WwR9kKO0V2mP05VYMu4fwET7r1Jczx3byagj47uBuHzVrB82k81TW964HuBL",
+    port: 5555
 });
 
 
