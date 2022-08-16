@@ -35,7 +35,7 @@ async function insertData(custData, pool){
 
     try{
         //this try block does the actual query to the PG DB
-
+                //
         //assumption: this fits in the registered name to billing first name / last name. could be changed
         try{
             const response = await client.query(

@@ -100,7 +100,7 @@ async function formatIt(object) {
   const customFields = JSON.stringify(customField);
 
     const itemForDB = [
-        null, //wooCommid - this will be set upon first sync with Skyvia
+        //wooCommid - this will be set upon first sync with Skyvia
         object.email,
         object.first_name,
         object.last_name,
