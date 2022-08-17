@@ -121,7 +121,6 @@ connectToDB = async (product) => {
 
     console.log(product);
     try {
-        //pool.connect();
 
         await insertData(product);
 

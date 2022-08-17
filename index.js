@@ -113,8 +113,8 @@ async function formatIt(object) {
         capitalizeFirstLetter(object.last_name),
         object.email,
         object.customer_id,
-        object.first_name, //billing first name
-        object.last_name,  //billing last name  //no company field in treez
+        capitalizeFirstLetter(object.first_name), //billing first name
+        capitalizeFirstLetter(object.last_name),  //billing last name  //no company field in treez
         object.addresses[0].state,        
         object.addresses[0].city,
         object.addresses[0].street1,  
