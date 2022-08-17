@@ -119,7 +119,7 @@ async function insertData(custData){
 
 connectToDB = async (product) => {
 
-    console.log(product);
+    //console.log(product);
     try {
 
         await insertData(product);
