@@ -24,6 +24,11 @@ const pool = new Pool({
     port: 5555
 });
 
+pool.on('error', (err) => {
+    console.error('Unexpected error on idle client', err);
+    //process.exit(-1);
+  });
+
 
 const TABLE_NAME = "public.\"customers_sync\"";
 //
