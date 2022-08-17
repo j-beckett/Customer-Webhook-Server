@@ -28,11 +28,11 @@ const pool = new Pool({
 const TABLE_NAME = "public.\"customers_sync\"";
 //
 
-async function insertData(custData, pool){
+async function insertData(custData){
 
     //Establish a new client. Don't forget to free the client with release() afterwards !
     const client = await pool.connect();
-
+    console.log("Connected Successfully");
     try{
         //this try block does the actual query to the PG DB
                 //
@@ -121,10 +121,9 @@ connectToDB = async (product) => {
 
     console.log(product);
     try {
-        pool.connect();
-        console.log("Connected Successfully");
+        //pool.connect();
 
-        await insertData(product, pool);
+        await insertData(product);
 
     } catch (err) {
 
