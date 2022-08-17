@@ -12,6 +12,13 @@ const origPlatform = "Treez";
 // Tell express to use body-parser's JSON parsing
 app.use(bodyParser.json())
 
+
+function capitalizeFirstLetter(string) {
+  string = string.toLowerCase();
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
 //object is one customer coming in from the Treez webhook. 
 async function formatIt(object) {
  
@@ -102,8 +109,8 @@ async function formatIt(object) {
     const itemForDB = [
         //wooCommid - this will be set upon first sync with Skyvia
         object.email,
-        object.first_name,
-        object.last_name,
+        capitalizeFirstLetter(object.first_name),
+        capitalizeFirstLetter(object.last_name),
         object.email,
         object.customer_id,
         object.first_name, //billing first name
