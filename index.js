@@ -106,6 +106,8 @@ async function formatIt(object) {
   ];
   //
 
+  //code is breaking here on undefined addresses. I think this is happeneing to due to people spamming user creation in Treez?
+
   // if (object.addresses[0] === undefined){
   //     object.addresses[0] = {};
   //     object.addresses[0].state = "null";      
