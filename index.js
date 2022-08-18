@@ -119,6 +119,11 @@ async function formatIt(object) {
 
   const customFields = JSON.stringify(customField);
 
+
+    console.log("the date isss");
+    
+    const date =  Date.now();
+    console.log(date);
     const itemForDB = [
         //wooCommid - this will be set upon first sync with Skyvia
         object.email,
@@ -163,7 +168,7 @@ async function formatIt(object) {
         object.merged_customer_ids,
         object.merged_into_customer_id,
         object.referral_source,
-        Date.now()
+        date
     ];
 
     
