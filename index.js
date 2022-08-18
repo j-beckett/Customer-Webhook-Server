@@ -106,14 +106,14 @@ async function formatIt(object) {
   ];
   //
 
-  if (object.addresses[0] === undefined){
-      object.addresses[0] = {};
-      object.addresses[0].state = "null";      
-      object.addresses[0].city = "null"; 
-      object.addresses[0].street1 = "null";  
-      object.addresses[0].street2 = "null"; 
-      object.addresses[0].zipcode = "null";  
-  }
+  // if (object.addresses[0] === undefined){
+  //     object.addresses[0] = {};
+  //     object.addresses[0].state = "null";      
+  //     object.addresses[0].city = "null"; 
+  //     object.addresses[0].street1 = "null";  
+  //     object.addresses[0].street2 = "null"; 
+  //     object.addresses[0].zipcode = "null";  
+  // }
 
   const customFields = JSON.stringify(customField);
 
