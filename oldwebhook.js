@@ -1,6 +1,3 @@
-//this file is for insert / update to PG database.
-//currently does not work
-
 
 //this imports the postgres connector into the file so it can be used
 const { dotenvConfig } = require('custom-env');
@@ -11,42 +8,29 @@ require('custom-env').env();
 
 //instantiate pool to connect to the database, connection settings are passed in
 const pool = new Pool({
-    // user: POSTGRESQL_DB_USER,
-    // host: POSTGRESQL_DB_HOST,
-    // database: POSTGRESQL_DB ,
-    // password: POSTGRESQL_DB_PASSWORD,
-    // port: POSTGRESQL_DB_PORT
-
-    user: "postgres",
-    host: "postgres.chtwubdr7alu.us-west-2.rds.amazonaws.com",
-    database: "sespe-sync-1",
-    password: "WwR9kKO0V2mP05VYMu4fwET7r1Jczx3byagj47uBuHzVrB82k81TW964HuBL",
-    port: 5555
+    user: POSTGRESQL_DB_USER,
+    host: POSTGRESQL_DB_HOST,
+    database: POSTGRESQL_DB ,
+    password: POSTGRESQL_DB_PASSWORD,
+    port: POSTGRESQL_DB_PORT
 });
-
-pool.on('error', (err) => {
-    console.error('Unexpected error on idle client', err);
-    //process.exit(-1);
-  });
 
 
 const TABLE_NAME = "public.\"customers_sync\"";
 //
 
-async function insertData(custData){
+async function insertData(custData, pool){
 
     //Establish a new client. Don't forget to free the client with release() afterwards !
     const client = await pool.connect();
-    console.log("Connected Successfully");
-    try{
-        
-        //this try block does the actual query to the PG DB
-                //
-        //assumption: this fits in the registered name to billing first name / last name. could be changed
 
+    try{
+        //this try block does the actual query to the PG DB
+
+        //assumption: this fits in the registered name to billing first name / last name. could be changed
         try{
             const response = await client.query(
-                `INSERT INTO  ${TABLE_NAME} (\"Email\",
+                `INSERT INTO  ${TABLE_NAME} (\"WooCustomerId\", \"Email\",
                  \"FirstName\", \"LastName\", \"Username\" , treez_customer_id, \"BillingAddress_FirstName\", 
                  \"BillingAddress_LastName\", \"BillingAddress_State\", \"BillingAddress_City\",
                   \"BillingAddress_Address1\", \"BillingAddress_Address2\" , \"BillingAddress_Postcode\",
@@ -58,10 +42,10 @@ async function insertData(custData){
                    referral_source) 
                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18,
                     $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36,
-                    $37, $38, $39, $40, $41, $42) 
+                    $37, $38, $39, $40, $41, $42, $43) 
                      ON CONFLICT (treez_customer_id) 
                      DO UPDATE SET 
-                     \"Email\" = EXCLUDED.\"Email\" , 
+                     \"WooCustomerId\" = EXCLUDED.\"WooCustomerId\" , \"Email\" = EXCLUDED.\"Email\" , 
                      \"FirstName\" = EXCLUDED.\"FirstName\" , \"LastName\" = EXCLUDED.\"LastName\" ,
                      \"Username\" = EXCLUDED.\"Username\" ,
                      \"BillingAddress_FirstName\" = EXCLUDED.\"BillingAddress_FirstName\", 
@@ -104,7 +88,7 @@ async function insertData(custData){
 
     finally{
         //free the client even if there was another error within the error handling. 
-        await client.release().then(() => { console.log("client disconnected")});
+        client.release();
     }
    
 
@@ -124,12 +108,14 @@ async function insertData(custData){
     //pool.done();
 }
 
-connectToDB = async (customer) => {
+connectToDB = async (product) => {
 
-    //console.log(product);
+    console.log(product);
     try {
+        pool.connect();
+        console.log("Connected Successfully");
 
-        await insertData(customer);
+        await insertData(product, pool);
 
     } catch (err) {
 
