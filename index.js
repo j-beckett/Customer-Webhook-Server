@@ -21,6 +21,8 @@ function capitalizeFirstLetter(string) {
 
 //object is one customer coming in from the Treez webhook. 
 async function formatIt(object) {
+
+  console.log(object);
  
     // console.log(object.verification_status);
     // console.log(object.first_name);
