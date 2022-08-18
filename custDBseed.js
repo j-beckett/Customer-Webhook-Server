@@ -104,7 +104,7 @@ async function insertData(custData){
 
     finally{
         //free the client even if there was another error within the error handling. 
-        await client.release().then(() => { console.log("client disconnected")});
+        await client.release();
     }
    
 
