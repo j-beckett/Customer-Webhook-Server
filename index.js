@@ -162,7 +162,8 @@ async function formatIt(object) {
         object.caregiver_details,
         object.merged_customer_ids,
         object.merged_into_customer_id,
-        object.referral_source
+        object.referral_source,
+        Date.now()
     ];
 
     
