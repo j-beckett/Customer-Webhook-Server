@@ -29,7 +29,7 @@ pool.on('error', (err) => {
     //process.exit(-1);
   });
 
-
+//
 const TABLE_NAME = "public.\"customers_sync\"";
 //
 
