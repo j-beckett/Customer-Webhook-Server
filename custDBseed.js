@@ -34,14 +34,14 @@ const TABLE_NAME = "public.\"customers_sync\"";
 //
 
 async function insertData(custData){
-
-    //Establish a new client. Don't forget to free the client with release() afterwards !
-    const client = await pool.connect();
-    console.log("Connected Successfully");
     try{
+        //Establish a new client. Don't forget to free the client with release() afterwards !
+        const client = await pool.connect();
+        console.log("Connected Successfully");
         //this try block does the actual query to the PG DB
                 //
         //assumption: this fits in the registered name to billing first name / last name. could be changed
+
         try{
             const response = await client.query(
                 `INSERT INTO  ${TABLE_NAME} (\"Email\",
@@ -102,7 +102,7 @@ async function insertData(custData){
 
     finally{
         //free the client even if there was another error within the error handling. 
-        client.release();
+        await client.release().then(() => { console.log("client disconnected")});
     }
    
 
@@ -122,12 +122,12 @@ async function insertData(custData){
     //pool.done();
 }
 
-connectToDB = async (product) => {
+connectToDB = async (customer) => {
 
     //console.log(product);
     try {
 
-        await insertData(product);
+        await insertData(customer);
 
     } catch (err) {
 
