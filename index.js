@@ -169,7 +169,7 @@ async function custFormatIt(object) {
 
 let productArr = [];
 
-const TIME_TO_SEND = 3000;
+const TIME_TO_SEND = 5000;
 
 //the timer at a certain ID has expired. Prints the ID of which product expires to the console
 //now includes some functionality to call another file to insert to DB. (not working)
@@ -185,30 +185,30 @@ async function timeUp(product) {
   console.log(product.data.pricing.price_type);
   console.log(product.data.pricing.price_sell);
 
-  // // let itemForDB = {
-  // //   "id": product.product_id, 
-  // //   "status": product.product_status,
-  // //   "name": product.product_configurable_fields.name,
-  // //   "brand": product.product_configurable_fields.brand,
-  // //   "price_type": product.pricing.price_type,
-  // //   "price": product.pricing.price_sell
+  // let itemForDB = {
+  //   "id": product.product_id, 
+  //   "status": product.product_status,
+  //   "name": product.product_configurable_fields.name,
+  //   "brand": product.product_configurable_fields.brand,
+  //   "price_type": product.pricing.price_type,
+  //   "price": product.pricing.price_sell
   
-  // // };
+  // };
 
-  // //formatting data for insertion to DB. 
-  // let itemForDB = [
-  //   product.product_id, 
-  //   product.product_status,
-  //   product.product_configurable_fields.name,
-  //   product.product_configurable_fields.brand,
-  //   product.pricing.price_type,
-  //   product.pricing.price_sell
-  // ];
+  //formatting data for insertion to DB. 
+  let itemForDB = [
+    product.data.product_id,
+    product.data.product_status,
+    product.data.product_configurable_fields.name,
+    product.data.product_configurable_fields.brand,
+    product.data.pricing.price_type,
+    product.data.pricing.price_sell
+  ];
 
-  // //send the formatted object off to this function to upsert the db
+  //send the formatted object off to this function to upsert the db
 
-  // //GET ALL DB CONNECTIONS TOGETHER ! 
-  // await pgDB.insertProductData(itemForDB); 
+  //GET ALL DB CONNECTIONS TOGETHER ! 
+  await pgDB.insertProductData(itemForDB); 
 }
 
  //this function returns the ID from a timer being set. 
