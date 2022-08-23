@@ -262,9 +262,9 @@ try{
 });
 
 app.post("/product" , (req, res) => {
-  let incomingProductID = req.body.product_id;
+  let incomingProductID = req.body.data.product_id;
 
-  //console.log(incomingProductID);
+  console.log(incomingProductID);
 
   //console.log(req.body) //
 
