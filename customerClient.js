@@ -104,7 +104,7 @@ function myFunc() {
             "drivers_license_expiration": "2022-12-12",
             "state_medical_id": "111",
             "permit_expiration": "N/A",
-            "email": "sesperfdmuser+818demo@gmail.com",
+            "email": "sespeuser+818demo@gmail.com",
             "phone": "6282032916",
             "notes": "loyal customer\nprefers flower - indica dominant hybrids",
             "physician_first_name": "111",

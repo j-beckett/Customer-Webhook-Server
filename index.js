@@ -126,6 +126,7 @@ async function formatIt(object) {
     console.log(date);
     const itemForDB = [
         //wooCommid - this will be set upon first sync with Skyvia
+
         object.email,
         capitalizeFirstLetter(object.first_name),
         capitalizeFirstLetter(object.last_name),
@@ -202,13 +203,14 @@ try{
 
     console.log(incomingData.email);
 
-    console.log((incomingData.email).substring(0,10));
 
-    console.log((incomingData.email).substring(0,12));
+    //only allows for rfdm emails - take out when running on the production API!
+    if ((incomingData.email).toLowerCase().includes("rfdm")){
 
-    formatIt(incomingData);
-    // console.log(incomingData);
+      formatIt(incomingData);
+      // console.log(incomingData);
 
+    }
       res.status(200).end() // Responding is important
   }
 
