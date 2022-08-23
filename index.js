@@ -174,16 +174,16 @@ const TIME_TO_SEND = 3000;
 //the timer at a certain ID has expired. Prints the ID of which product expires to the console
 //now includes some functionality to call another file to insert to DB. (not working)
 async function timeUp(product) {
-  console.log("THE TIME ENDED!!! Send data now for:"+ product.product_id);
+  console.log("THE TIME ENDED!!! Send data now for:"+ product.data.product_id);
 
   console.log(product)
 
-  // console.log(product.product_status);
-  // console.log(product.category_type);
-  // console.log(product.product_configurable_fields.name);
-  // console.log(product.product_configurable_fields.brand);
-  // console.log(product.pricing.price_type);
-  // console.log(product.pricing.price_sell);
+  console.log(product.data.product_status);
+  console.log(product.data.category_type);
+  console.log(product.data.product_configurable_fields.name);
+  console.log(product.data.product_configurable_fields.brand);
+  console.log(product.data.pricing.price_type);
+  console.log(product.data.pricing.price_sell);
 
   // // let itemForDB = {
   // //   "id": product.product_id, 
