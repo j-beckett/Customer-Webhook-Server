@@ -199,13 +199,15 @@ try{
     }
 
     let incomingData = req.body.data;
-    //const userRole = 
 
+    console.log(incomingData.email);
+
+    console.log((incomingData.email).substring(0,10));
+
+    console.log((incomingData.email).substring(0,12));
 
     formatIt(incomingData);
     // console.log(incomingData);
-
-  //a change
 
       res.status(200).end() // Responding is important
   }
