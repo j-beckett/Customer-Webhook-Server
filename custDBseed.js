@@ -1,6 +1,3 @@
-//this file is for insert / update to PG database.
-//currently does not work
-
 
 //this imports the postgres connector into the file so it can be used
 const { dotenvConfig } = require('custom-env');
