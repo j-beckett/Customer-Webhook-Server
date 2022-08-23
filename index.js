@@ -176,38 +176,39 @@ const TIME_TO_SEND = 3000;
 async function timeUp(product) {
   console.log("THE TIME ENDED!!! Send data now for:"+ product.product_id);
 
+  console.log(product)
 
-  console.log(product.product_status);
-  console.log(product.category_type);
-  console.log(product.product_configurable_fields.name);
-  console.log(product.product_configurable_fields.brand);
-  console.log(product.pricing.price_type);
-  console.log(product.pricing.price_sell);
+  // console.log(product.product_status);
+  // console.log(product.category_type);
+  // console.log(product.product_configurable_fields.name);
+  // console.log(product.product_configurable_fields.brand);
+  // console.log(product.pricing.price_type);
+  // console.log(product.pricing.price_sell);
 
-  // let itemForDB = {
-  //   "id": product.product_id, 
-  //   "status": product.product_status,
-  //   "name": product.product_configurable_fields.name,
-  //   "brand": product.product_configurable_fields.brand,
-  //   "price_type": product.pricing.price_type,
-  //   "price": product.pricing.price_sell
+  // // let itemForDB = {
+  // //   "id": product.product_id, 
+  // //   "status": product.product_status,
+  // //   "name": product.product_configurable_fields.name,
+  // //   "brand": product.product_configurable_fields.brand,
+  // //   "price_type": product.pricing.price_type,
+  // //   "price": product.pricing.price_sell
   
-  // };
+  // // };
 
-  //formatting data for insertion to DB. 
-  let itemForDB = [
-    product.product_id, 
-    product.product_status,
-    product.product_configurable_fields.name,
-    product.product_configurable_fields.brand,
-    product.pricing.price_type,
-    product.pricing.price_sell
-  ];
+  // //formatting data for insertion to DB. 
+  // let itemForDB = [
+  //   product.product_id, 
+  //   product.product_status,
+  //   product.product_configurable_fields.name,
+  //   product.product_configurable_fields.brand,
+  //   product.pricing.price_type,
+  //   product.pricing.price_sell
+  // ];
 
-  //send the formatted object off to this function to upsert the db
+  // //send the formatted object off to this function to upsert the db
 
-  //GET ALL DB CONNECTIONS TOGETHER ! 
-  await pgDB.insertProductData(itemForDB); 
+  // //GET ALL DB CONNECTIONS TOGETHER ! 
+  // await pgDB.insertProductData(itemForDB); 
 }
 
  //this function returns the ID from a timer being set. 
