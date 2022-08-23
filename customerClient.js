@@ -1,9 +1,12 @@
+//this file is used to test the index.js file for the Customer Webhook locally (before pushing to heroku! )
+
+
 const axios = require('axios');
 
 const sleep = require('util').promisify(setTimeout)
 let i = 1;
 
-let num = 1;
+let num = 0;
 
 function myFunc() {
     const custArr = [
@@ -25,7 +28,7 @@ function myFunc() {
             "drivers_license_expiration": "2022-04-07",
             "state_medical_id": "N/A",
             "permit_expiration": "N/A",
-            "email": "samplejen@test.com",
+            "email": "jenrfdmtest+0050@test.com",
             "phone": "6282032916",
             "notes": "loyal customer\nprefers flower - indica dominant hybrids",
             "physician_first_name": null,

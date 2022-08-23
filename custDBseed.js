@@ -30,75 +30,79 @@ pool.on('error', (err) => {
 const TABLE_NAME = "public.\"customers_sync\"";
 //
 
-async function insertData(custData){
-
-    //Establish a new client. Don't forget to free the client with release() afterwards !
+async function insertCustData(custData){
     const client = await pool.connect();
-    console.log("Connected Successfully");
     try{
-        
-        //this try block does the actual query to the PG DB
-                //
-        //assumption: this fits in the registered name to billing first name / last name. could be changed
-
+        //Establish a new client. Don't forget to free the client with release() afterwards !
+       
+        console.log("Connected Successfully");
         try{
-            const response = await client.query(
-                `INSERT INTO  ${TABLE_NAME} (\"Email\",
-                 \"FirstName\", \"LastName\", \"Username\" , treez_customer_id, \"BillingAddress_FirstName\", 
-                 \"BillingAddress_LastName\", \"BillingAddress_State\", \"BillingAddress_City\",
-                  \"BillingAddress_Address1\", \"BillingAddress_Address2\" , \"BillingAddress_Postcode\",
-                   \"BillingAddress_Email\", \"OriginalPlatform\", \"VerificationStatus\", gender, 
-                   birthdate, banned, drivers_license_number, drivers_license_expiration, 
-                   permit_expiration, warning_1, warning_2, status, nickname, notes, membership_details, \"CustomFields\", state_medical_id,
-                   physician_first_name, physician_last_name, physician_license, physician_address, physician_phone, is_caregiver,
-                   caregiver_license_number, caregiver_name_1, caregiver_name_2, caregiver_details, merged_customer_ids, merged_into_customer_id,
-                   referral_source, treez_update_time) 
-                   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18,
-                    $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36,
-                    $37, $38, $39, $40, $41, $42, $43) 
-                     ON CONFLICT (treez_customer_id) 
-                     DO UPDATE SET 
-                     \"Email\" = EXCLUDED.\"Email\" , 
-                     \"FirstName\" = EXCLUDED.\"FirstName\" , \"LastName\" = EXCLUDED.\"LastName\" ,
-                     \"Username\" = EXCLUDED.\"Username\" ,
-                     \"BillingAddress_FirstName\" = EXCLUDED.\"BillingAddress_FirstName\", 
-                     \"BillingAddress_LastName\" =  EXCLUDED.\"BillingAddress_LastName\",
-                     \"BillingAddress_State\" = EXCLUDED.\"BillingAddress_State\", 
-                     \"BillingAddress_City\" = EXCLUDED.\"BillingAddress_City\",
-                     \"BillingAddress_Address1\" = EXCLUDED.\"BillingAddress_Address1\", 
-                     \"BillingAddress_Address2\" = EXCLUDED.\"BillingAddress_Address2\", 
-                     \"BillingAddress_Postcode\" =  EXCLUDED.\"BillingAddress_Postcode\",
-                     \"BillingAddress_Email\" = EXCLUDED.\"BillingAddress_Email\",
-                     \"Role\"  = EXCLUDED.\"Role\" , 
-                     \"VerificationStatus\" = EXCLUDED.\"VerificationStatus\" , gender = EXCLUDED.gender , 
-                     birthdate = EXCLUDED.birthdate , banned = EXCLUDED.banned , drivers_license_number = EXCLUDED.drivers_license_number ,
-                    drivers_license_expiration = EXCLUDED.drivers_license_expiration , 
-                    permit_expiration = EXCLUDED.permit_expiration, warning_1 = EXCLUDED.warning_1, 
-                    warning_2 = EXCLUDED.warning_2, status = EXCLUDED.status, nickname = EXCLUDED.nickname,
-                    notes = EXCLUDED.notes, membership_details = EXCLUDED.membership_details, 
-                    \"CustomFields\" = EXCLUDED.\"CustomFields\",  referral_source = EXCLUDED.referral_source, treez_update_time = EXCLUDED.treez_update_time
-                    ` ,
-                custData
-            );
+            
+            //this try block does the actual query to the PG DB
+                    //
+            //assumption: this fits in the registered name to billing first name / last name. could be changed
 
-            console.log("RESPONSE IS: ");
-            console.log(response);
+            try{
+                const response = await client.query(
+                    `INSERT INTO  ${TABLE_NAME} (\"Email\",
+                    \"FirstName\", \"LastName\", \"Username\" , treez_customer_id, \"BillingAddress_FirstName\", 
+                    \"BillingAddress_LastName\", \"BillingAddress_State\", \"BillingAddress_City\",
+                    \"BillingAddress_Address1\", \"BillingAddress_Address2\" , \"BillingAddress_Postcode\",
+                    \"BillingAddress_Email\", \"OriginalPlatform\", \"VerificationStatus\", gender, 
+                    birthdate, banned, drivers_license_number, drivers_license_expiration, 
+                    permit_expiration, warning_1, warning_2, status, nickname, notes, membership_details, \"CustomFields\", state_medical_id,
+                    physician_first_name, physician_last_name, physician_license, physician_address, physician_phone, is_caregiver,
+                    caregiver_license_number, caregiver_name_1, caregiver_name_2, caregiver_details, merged_customer_ids, merged_into_customer_id,
+                    referral_source, treez_update_time) 
+                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18,
+                        $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36,
+                        $37, $38, $39, $40, $41, $42, $43) 
+                        ON CONFLICT (treez_customer_id) 
+                        DO UPDATE SET 
+                        \"Email\" = EXCLUDED.\"Email\" , 
+                        \"FirstName\" = EXCLUDED.\"FirstName\" , \"LastName\" = EXCLUDED.\"LastName\" ,
+                        \"Username\" = EXCLUDED.\"Username\" ,
+                        \"BillingAddress_FirstName\" = EXCLUDED.\"BillingAddress_FirstName\", 
+                        \"BillingAddress_LastName\" =  EXCLUDED.\"BillingAddress_LastName\",
+                        \"BillingAddress_State\" = EXCLUDED.\"BillingAddress_State\", 
+                        \"BillingAddress_City\" = EXCLUDED.\"BillingAddress_City\",
+                        \"BillingAddress_Address1\" = EXCLUDED.\"BillingAddress_Address1\", 
+                        \"BillingAddress_Address2\" = EXCLUDED.\"BillingAddress_Address2\", 
+                        \"BillingAddress_Postcode\" =  EXCLUDED.\"BillingAddress_Postcode\",
+                        \"BillingAddress_Email\" = EXCLUDED.\"BillingAddress_Email\",
+                        \"Role\"  = EXCLUDED.\"Role\" , 
+                        \"VerificationStatus\" = EXCLUDED.\"VerificationStatus\" , gender = EXCLUDED.gender , 
+                        birthdate = EXCLUDED.birthdate , banned = EXCLUDED.banned , drivers_license_number = EXCLUDED.drivers_license_number ,
+                        drivers_license_expiration = EXCLUDED.drivers_license_expiration , 
+                        permit_expiration = EXCLUDED.permit_expiration, warning_1 = EXCLUDED.warning_1, 
+                        warning_2 = EXCLUDED.warning_2, status = EXCLUDED.status, nickname = EXCLUDED.nickname,
+                        notes = EXCLUDED.notes, membership_details = EXCLUDED.membership_details, 
+                        \"CustomFields\" = EXCLUDED.\"CustomFields\",  referral_source = EXCLUDED.referral_source, treez_update_time = EXCLUDED.treez_update_time
+                        ` ,
+                    custData
+                );
+
+                console.log("RESPONSE IS: ");
+                console.log(response);
+            }
+            catch (err) {
+                console.log("error upserting into the PG table")
+                throw err;
+            }
+
+            console.log("Inserted or Updated a Customer into the table.")
         }
+        catch(err){
+            console.log(err.stack);
+            console.log("Error starting a new client.");
 
-        catch (err) {
-            console.log("error upserting into the PG table")
-            throw err;
         }
-
-        console.log("Inserted or Updated a Customer into the table.")
     }
-
     catch(err){
         console.log(err.stack);
-        console.log("Error starting a new client.");
-
+        console.log("Error Connectiing to the pool "); 
     }
-
+        
     finally{
         //free the client even if there was another error within the error handling. 
         await client.release();
@@ -121,12 +125,52 @@ async function insertData(custData){
     //pool.done();
 }
 
+async function insertProductData(productData){
+
+    //Establish a new client. Don't forget to free the client with release() afterwards !
+    const client = await pool.connect();
+    console.log(productData);
+    try{
+        //this try block does the actual query to the PG DB
+        try{
+            const response = await client.query(
+                `INSERT INTO public.\"Node_Products_Test\" (product_id, category, name, brand, price_type, price) 
+                VALUES ($1, $2, $3, $4, $5, $6) 
+                ON CONFLICT (product_id) 
+                DO UPDATE SET category = EXCLUDED.category, name = EXCLUDED.name, brand = EXCLUDED.brand, price_type = EXCLUDED.price_type, price = EXCLUDED.price` ,
+                productData
+            );
+
+            console.log(response);
+            console.log("Inserted or Updated a product into the table.")
+        }
+
+        catch (err) {
+            console.log("error upserting into the PG table")
+            throw err;
+        }
+    }
+
+    catch(err){
+        console.log(err.stack);
+        console.log("Error starting a new client.");
+
+    }
+
+    finally{
+        //free the client even if there was another error within the error handling. 
+        client.release();
+    }
+    
+   
+}
+
 connectToDB = async (customer) => {
 
     //console.log(product);
     try {
 
-        await insertData(customer);
+        await insertCustData(customer);
 
     } catch (err) {
 
@@ -141,4 +185,4 @@ connectToDB = async (customer) => {
 //this is used for running tests before connecting this file to the server (index.js)
  //connectToDB([123,"testDB", "testingUPSERT2", "jen industries", "fixed", 123] );
 
-module.exports = {connectToDB};
+module.exports = {insertCustData, insertProductData};

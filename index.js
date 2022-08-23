@@ -12,21 +12,16 @@ const origPlatform = "Treez";
 // Tell express to use body-parser's JSON parsing
 app.use(bodyParser.json())
 
-
+/* CUSTOMER FUNCTIONS HERE */
 function capitalizeFirstLetter(string) {
   string = string.toLowerCase();
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-
 //object is one customer coming in from the Treez webhook. 
-async function formatIt(object) {
+async function custFormatIt(object) {
 
-  console.log(object);
- 
-    // console.log(object.verification_status);
-    // console.log(object.first_name);
-   // console.log(object.addresses);
+  //console.log(object);
 
    //TODO
     //assumption: Treez does not define an address as "billing address"
@@ -43,7 +38,7 @@ async function formatIt(object) {
       //customerMemTypes += " , ";
     });
     
-    //console.log(typeof(object.birthday));
+    
     console.log("HEREEE");
     console.log(object.referral_source);
     let customField = [
@@ -104,18 +99,6 @@ async function formatIt(object) {
         "Value":  object.referral_source
       }
   ];
-  //
-
-  //code is breaking here on undefined addresses. I think this is happeneing to due to people spamming user creation in Treez?
-
-  // if (object.addresses[0] === undefined){
-  //     object.addresses[0] = {};
-  //     object.addresses[0].state = "null";      
-  //     object.addresses[0].city = "null"; 
-  //     object.addresses[0].street1 = "null";  
-  //     object.addresses[0].street2 = "null"; 
-  //     object.addresses[0].zipcode = "null";  
-  // }
 
   const customFields = JSON.stringify(customField);
 
@@ -124,6 +107,9 @@ async function formatIt(object) {
     
     const date =  Date.now();
     console.log(date);
+
+    //the postgres functions require everything to be formatted into an array.
+    //NOTE: the order of insertion must match the order the columns are listed EXACTLY! 
     const itemForDB = [
         //wooCommid - this will be set upon first sync with Skyvia
 
@@ -172,13 +158,66 @@ async function formatIt(object) {
         date
     ];
 
-    
-
-    pgDB.connectToDB(itemForDB);
+    await pgDB.insertCustData(itemForDB);
 
 
 }
+/* END CUSTOMER FUNCTIONS */
 
+/**  PRODUCT FUNCTIONS HERE **/
+
+
+let productArr = [];
+
+const TIME_TO_SEND = 3000;
+
+//the timer at a certain ID has expired. Prints the ID of which product expires to the console
+//now includes some functionality to call another file to insert to DB. (not working)
+async function timeUp(product) {
+  console.log("THE TIME ENDED!!! Send data now for:"+ product.product_id);
+
+
+  console.log(product.product_status);
+  console.log(product.category_type);
+  console.log(product.product_configurable_fields.name);
+  console.log(product.product_configurable_fields.brand);
+  console.log(product.pricing.price_type);
+  console.log(product.pricing.price_sell);
+
+  // let itemForDB = {
+  //   "id": product.product_id, 
+  //   "status": product.product_status,
+  //   "name": product.product_configurable_fields.name,
+  //   "brand": product.product_configurable_fields.brand,
+  //   "price_type": product.pricing.price_type,
+  //   "price": product.pricing.price_sell
+  
+  // };
+
+  //formatting data for insertion to DB. 
+  let itemForDB = [
+    product.product_id, 
+    product.product_status,
+    product.product_configurable_fields.name,
+    product.product_configurable_fields.brand,
+    product.pricing.price_type,
+    product.pricing.price_sell
+  ];
+
+  //send the formatted object off to this function to upsert the db
+
+  //GET ALL DB CONNECTIONS TOGETHER ! 
+  await pgDB.insertProductData(itemForDB); 
+}
+
+ //this function returns the ID from a timer being set. 
+  //because setTimeout MUST call another function, it calls the one above ^
+  function returnNewTimeID(product){
+    return setTimeout(timeUp,TIME_TO_SEND, product);
+  }
+
+
+/**  END PRODUCT FUNCTIONS **/
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', (req, res) => {
@@ -207,7 +246,7 @@ try{
     //only allows for rfdm emails - take out when running on the production API!
     if ((incomingData.email).toLowerCase().includes("rfdm")){
 
-      formatIt(incomingData);
+      custFormatIt(incomingData);
       // console.log(incomingData);
 
     }
@@ -219,6 +258,66 @@ try{
 
     res.status(400).end() // Something bad happened 
   }
+});
+
+app.post("/product" , (req, res) => {
+  let incomingProductID = req.body.product_id;
+
+  //console.log(incomingProductID);
+
+  //console.log(req.body) //
+
+  let matchFound = false;
+
+  if (productArr.length === 0){
+    console.log("Array empty. Adding item to arr");
+
+    let timeID = returnNewTimeID(req.body); 
+    let obj = {"id": incomingProductID, "timeoutID": timeID};
+    productArr.push(obj);
+  }
+
+  //check the array if there is match based on product id. If no match - add id to array
+  else{
+   matchFound = productArr.some((currItem, index) => {
+      console.log(productArr.length + " is length ");
+      console.log("incoming product is:" + incomingProductID);
+      console.log("index is: " + index);
+      console.log("currItem is:")
+      console.log(currItem.id);
+
+      if (incomingProductID === currItem.id){
+        console.log("match found in the array");
+        clearTimeout(currItem.timeID);
+        console.log("timeout cleared. Starting new timer...")
+
+        let timeID = returnNewTimeID(req.body);  
+
+        currItem.timeID = timeID;
+
+       // matchFound = true;
+
+        return true;
+      }
+
+      return false;
+      
+    })
+
+    if (!matchFound){
+        console.log("item not found! adding to array")
+        let timeID = returnNewTimeID(req.body); 
+        let obj = {"id": incomingProductID, "timeoutID": timeID};
+        productArr.push(obj);
+
+    }
+  }
+
+
+
+
+
+  res.status(200).end() // Responding is important
 });
 
 // Start express on the defined port
