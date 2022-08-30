@@ -220,7 +220,10 @@ async function timeUp(product) {
 
 /**  END PRODUCT FUNCTIONS **/
 
-// respond with "hello world" when a GET request is made to the homepage
+
+// **** ENDPOINTS ARE HERE **** //
+
+// respond with "hello world" when a GET request is made to the homepage. Mostly I use this just for a quick test to ensure the server is up.
 app.get('/', (req, res) => {
   res.send('hello world')
 })
@@ -234,6 +237,7 @@ try{
     // console.log("req BODY is:");
     // console.log(req.body);
 
+    //this is for when the Treez Endpoint sends over their test request.
     if (req.body.test === 'test'){
       res.status(201).end() // Responding is important
       return;
