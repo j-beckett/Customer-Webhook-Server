@@ -29,7 +29,11 @@ async function insertData(productData, pool){
         //this try block does the actual query to the PG DB
         try{
             const response = await client.query(
-                "INSERT INTO public.\"Node_Products_Test\" (product_id, category, name, brand, price_type, price) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (product_id) DO UPDATE SET category = EXCLUDED.category, name = EXCLUDED.name, brand = EXCLUDED.brand, price_type = EXCLUDED.price_type, price = EXCLUDED.price" ,
+                `INSERT INTO public.\"Node_Products_Test\" (product_id, category, name, brand, price_type, price) 
+                VALUES ($1, $2, $3, $4, $5, $6) 
+                ON CONFLICT (product_id) 
+                DO UPDATE SET category = EXCLUDED.category, name = EXCLUDED.name, brand = EXCLUDED.brand, 
+                price_type = EXCLUDED.price_type, price = EXCLUDED.price` ,
                 productData
             );
 
