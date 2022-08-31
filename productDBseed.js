@@ -9,6 +9,8 @@ const { Pool } = require('pg');
 //imports the AWS Postgres DB credentials from the .env file 
 require('custom-env').env();
 
+const PRODUCT_TABLE_NAME = "public.\"products_sync\"";
+
 //instantiate pool to connect to the database, connection settings are passed in
 const pool = new Pool({
     user: process.env.POSTGRESQL_DB_USER,
@@ -18,7 +20,9 @@ const pool = new Pool({
     port: process.env.POSTGRESQL_DB_PORT
 });
 
-//
+//attributes need to be specially formatted in their own JSON object before insertion!
+
+//ignore ecommerce object unless there is a descripton seen that we need?
 
 async function insertData(productData, pool){
 
@@ -29,11 +33,13 @@ async function insertData(productData, pool){
         //this try block does the actual query to the PG DB
         try{
             const response = await client.query(
-                `INSERT INTO public.\"Node_Products_Test\" (product_id, category, name, brand, price_type, price) 
-                VALUES ($1, $2, $3, $4, $5, $6) 
+                `INSERT INTO ${PRODUCT_TABLE_NAME} (treez_product_id, \"Name\", brand, \"RegularPrice\", \"StockQuantity\") 
+                VALUES ($1, $2, $3, $4, $5 ) 
                 ON CONFLICT (product_id) 
-                DO UPDATE SET category = EXCLUDED.category, name = EXCLUDED.name, brand = EXCLUDED.brand, 
-                price_type = EXCLUDED.price_type, price = EXCLUDED.price` ,
+                DO UPDATE SET  \"Name\" = EXCLUDED.\"Name\", brand = EXCLUDED.brand, 
+                \"RegularPrice\" = EXCLUDED.\"RegularPrice\", \"StockQuantity\" = EXCLUDED.\"StockQuantity\"
+                
+                ` ,
                 productData
             );
 

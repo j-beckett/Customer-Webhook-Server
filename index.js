@@ -1,18 +1,29 @@
 // Require express and body-parser
 const express = require("express")
-
 // Initialize express and define a port
 const app = express()
 const PORT = 5000;
 const bodyParser = require("body-parser");
 const pgDB = require("./custDBseed.js");
-
-const origPlatform = "Treez";
-
 // Tell express to use body-parser's JSON parsing
 app.use(bodyParser.json())
 
+
+
+/*GLOBALS DON'T TOUCH! */
+
+let PRODUCT_ARRAY = [];
+//time to wait between webhook pings to send. in milliseconds.
+const TIME_TO_SEND = 10000;
+
+const origPlatform = "Treez";
+/*END GLOBALS */
+
+
+
 /* CUSTOMER FUNCTIONS HERE */
+
+
 function capitalizeFirstLetter(string) {
   string = string.toLowerCase();
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -39,36 +50,36 @@ async function custFormatIt(object) {
     });
     
     
-    console.log("HEREEE");
+    //console.log("HEREEE");
     console.log(object.referral_source);
     let customField = [
       {
-          "Key": "id_verification_status",
-          "Value": object.verification_status
+        "Key": "id_verification_status",
+        "Value": object.verification_status
       },
       {
-          "Key": "original_platform",
-          "Value": origPlatform
+        "Key": "original_platform",
+        "Value": origPlatform
       },
       {
-          "Key": "birthday",
-          "Value": object.birthday
+        "Key": "birthday",
+        "Value": object.birthday
       },
       {
-          "Key": "gender",
-          "Value": object.gender
+        "Key": "gender",
+        "Value": object.gender
       },
       {
-          "Key": "driver_license_number",
-          "Value": object.drivers_license
+        "Key": "driver_license_number",
+        "Value": object.drivers_license
       },
       {
         "Key": "driver_license_expiry",
         "Value": object.drivers_license_expiration
       },
       {
-          "Key": "membership_details",
-          "Value": customerMemTypes
+        "Key": "membership_details",
+        "Value": customerMemTypes
       },
       {
         "Key": "membership_details",
@@ -167,43 +178,38 @@ async function custFormatIt(object) {
 /**  PRODUCT FUNCTIONS HERE **/
 
 
-let PRODUCT_ARRAY = [];
+//returns an array of everything mapped and formatted, ready to be send to the DB.
+function productFormatIt(product){
 
-const TIME_TO_SEND = 5000;
-
-//the timer at a certain ID has expired. Prints the ID of which product expires to the console
-//now includes some functionality to call another file to insert to DB. (not working)
-async function timeUp(product) {
-  console.log("THE TIME ENDED!!! Send data now for:"+ product.data.product_id);
-
-  console.log(product)
-
-  console.log(product.data.product_status);
-  console.log(product.data.category_type);
-  console.log(product.data.product_configurable_fields.name);
-  console.log(product.data.product_configurable_fields.brand);
-  console.log(product.data.pricing.price_type);
-  console.log(product.data.pricing.price_sell);
-
-  // let itemForDB = {
-  //   "id": product.product_id, 
-  //   "status": product.product_status,
-  //   "name": product.product_configurable_fields.name,
-  //   "brand": product.product_configurable_fields.brand,
-  //   "price_type": product.pricing.price_type,
-  //   "price": product.pricing.price_sell
-  
-  // };
+  //product.data.
 
   //formatting data for insertion to DB. 
   let itemForDB = [
-    product.data.product_id,
-    product.data.product_status,
-    product.data.product_configurable_fields.name,
-    product.data.product_configurable_fields.brand,
-    product.data.pricing.price_type,
-    product.data.pricing.price_sell
+    product.product_id,
+    product.product_configurable_fields.name,
+    product.product_configurable_fields.brand,
+    product.pricing.price_sell,
+    product.sellable_quantity
   ];
+
+  return itemForDB;
+
+}
+//the timer at a certain ID has expired. Prints the ID of which product expires to the console
+async function timeUp(product) {
+  console.log("THE TIME ENDED!!! Send data now for:"+ product.product_id);
+
+  console.log(product)
+
+  // console.log(product.data.product_status);
+  // console.log(product.data.category_type);
+  // console.log(product.data.product_configurable_fields.name);
+  // console.log(product.data.product_configurable_fields.brand);
+  // console.log(product.data.pricing.price_type);
+  // console.log(product.data.pricing.price_sell);
+
+
+  const itemForDB = productFormatIt(product);
 
   //send the formatted object off to this function to upsert the db
 
@@ -272,10 +278,10 @@ try{
 */
 //
 app.post("/product" , (req, res) => {
-  let incomingProductID = req.body.data.product_id;
-
+  let incomingProductID = req.body.product_id;
   console.log(incomingProductID);
 
+  //full customer log//
   console.log(req.body.data) //
 
   let matchFound = false;

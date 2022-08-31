@@ -28,7 +28,7 @@ pool.on('error', (err) => {
 
 //
 const TABLE_NAME = "public.\"customers_sync\"";
-//
+const PRODUCT_TABLE_NAME = "public.\"products_sync\"";
 
 async function insertCustData(custData){
     const client = await pool.connect();
@@ -134,15 +134,17 @@ async function insertProductData(productData){
         //this try block does the actual query to the PG DB
         try{
             const response = await client.query(
-                `INSERT INTO public.\"Node_Products_Test\" (product_id, category, name, brand, price_type, price) 
-                VALUES ($1, $2, $3, $4, $5, $6) 
+                `INSERT INTO ${PRODUCT_TABLE_NAME} (treez_product_id, \"Name\", brand, \"RegularPrice\", \"StockQuantity\") 
+                VALUES ($1, $2, $3, $4, $5 ) 
                 ON CONFLICT (product_id) 
-                DO UPDATE SET category = EXCLUDED.category, name = EXCLUDED.name, brand = EXCLUDED.brand, price_type = EXCLUDED.price_type, price = EXCLUDED.price` ,
+                DO UPDATE SET  \"Name\" = EXCLUDED.\"Name\", brand = EXCLUDED.brand, 
+                \"RegularPrice\" = EXCLUDED.\"RegularPrice\", \"StockQuantity\" = EXCLUDED.\"StockQuantity\"
+                
+                ` ,
                 productData
             );
 
             console.log(response);
-            console.log("Inserted or Updated a product into the table.")
         }
 
         catch (err) {

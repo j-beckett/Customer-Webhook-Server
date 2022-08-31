@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const sleep = require('util').promisify(setTimeout)
-let i = 1;
+let i = 0;
 
 function myFunc() {
     const prodArr = [
