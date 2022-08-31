@@ -167,7 +167,7 @@ async function custFormatIt(object) {
 /**  PRODUCT FUNCTIONS HERE **/
 
 
-let productArr = [];
+let PRODUCT_ARRAY = [];
 
 const TIME_TO_SEND = 5000;
 
@@ -265,27 +265,34 @@ try{
   }
 });
 
+//ALL TIMER LOGIC IS IN HERE! //
+/*   This timer logic exists because Treez sends data to the webhook anytime any field is touched. 
+  Therefore, this endpoint will likely recieve 100's of requests in a matter of seconds. 
+  Time to Send Can be adjusted by:
+*/
+//
 app.post("/product" , (req, res) => {
   let incomingProductID = req.body.data.product_id;
 
   console.log(incomingProductID);
 
-  //console.log(req.body) //
+  console.log(req.body.data) //
 
   let matchFound = false;
 
-  if (productArr.length === 0){
+  //array is empty - add the first item there
+  if (PRODUCT_ARRAY.length === 0){
     console.log("Array empty. Adding item to arr");
 
     let timeID = returnNewTimeID(req.body); 
     let obj = {"id": incomingProductID, "timeoutID": timeID};
-    productArr.push(obj);
+    PRODUCT_ARRAY.push(obj);
   }
 
   //check the array if there is match based on product id. If no match - add id to array
   else{
-   matchFound = productArr.some((currItem, index) => {
-      console.log(productArr.length + " is length ");
+      matchFound = PRODUCT_ARRAY.some((currItem, index) => {
+      console.log(PRODUCT_ARRAY.length + " is length ");
       console.log("incoming product is:" + incomingProductID);
       console.log("index is: " + index);
       console.log("currItem is:")
@@ -313,7 +320,7 @@ app.post("/product" , (req, res) => {
         console.log("item not found! adding to array")
         let timeID = returnNewTimeID(req.body); 
         let obj = {"id": incomingProductID, "timeoutID": timeID};
-        productArr.push(obj);
+        PRODUCT_ARRAY.push(obj);
 
     }
   }
