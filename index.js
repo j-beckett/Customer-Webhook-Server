@@ -337,10 +337,16 @@ try{
 */
 //
 app.post("/product" , (req, res) => {
-  let incomingProductID = req.body.data.product_id;
 
-  console.log("!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!!");
-  console.log(req.body);
+
+  //NOTE: THIS WORKS FOR WEBHOOK USE!!!!
+  //If you are testing with productClient.js , change req.body.data -> req.body!!!
+  const productData = req.body.data;
+
+  let incomingProductID = productData.product_id;
+
+  //console.log("!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!!");
+  //console.log(req.body);
   console.log(incomingProductID);
 
   //full customer log//
@@ -352,7 +358,7 @@ app.post("/product" , (req, res) => {
   if (PRODUCT_ARRAY.length === 0){
     console.log("Array empty. Adding item to arr");
 
-    let timeID = returnNewTimeID(req.body.data); 
+    let timeID = returnNewTimeID(productData); 
     let obj = {"id": incomingProductID, "timeoutID": timeID};
     PRODUCT_ARRAY.push(obj);
   }
@@ -371,7 +377,7 @@ app.post("/product" , (req, res) => {
         clearTimeout(currItem.timeID);
         console.log("timeout cleared. Starting new timer...")
 
-        let timeID = returnNewTimeID(req.body.data);  
+        let timeID = returnNewTimeID(productData);  
 
         currItem.timeID = timeID;
 
@@ -386,7 +392,7 @@ app.post("/product" , (req, res) => {
 
     if (!matchFound){
         console.log("item not found! adding to array")
-        let timeID = returnNewTimeID(req.body.data); 
+        let timeID = returnNewTimeID(productData); 
         let obj = {"id": incomingProductID, "timeoutID": timeID};
         PRODUCT_ARRAY.push(obj);
 
