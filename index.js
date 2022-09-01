@@ -337,7 +337,7 @@ try{
 */
 //
 app.post("/product" , (req, res) => {
-  let incomingProductID = req.body.product_id;
+  let incomingProductID = req.body.data.product_id;
 
   console.log("IMPORTANT");
   console.log(req.body);
@@ -371,7 +371,7 @@ app.post("/product" , (req, res) => {
         clearTimeout(currItem.timeID);
         console.log("timeout cleared. Starting new timer...")
 
-        let timeID = returnNewTimeID(req.body);  
+        let timeID = returnNewTimeID(req.body.data);  
 
         currItem.timeID = timeID;
 
@@ -386,7 +386,7 @@ app.post("/product" , (req, res) => {
 
     if (!matchFound){
         console.log("item not found! adding to array")
-        let timeID = returnNewTimeID(req.body); 
+        let timeID = returnNewTimeID(req.body.data); 
         let obj = {"id": incomingProductID, "timeoutID": timeID};
         PRODUCT_ARRAY.push(obj);
 
