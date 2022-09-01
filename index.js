@@ -339,14 +339,14 @@ try{
 app.post("/product" , (req, res) => {
   let incomingProductID = req.body.data.product_id;
 
-  console.log("!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!");
+  console.log("!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!!");
   console.log(req.body);
   console.log(incomingProductID);
 
   //full customer log//
   //console.log(req.body.data) //
 
-  let matchFound = false;
+  let matchFound = false;git 
 
   //array is empty - add the first item there
   if (PRODUCT_ARRAY.length === 0){
