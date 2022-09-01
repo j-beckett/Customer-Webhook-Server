@@ -180,7 +180,8 @@ async function custFormatIt(object) {
 
 //returns an array of everything mapped and formatted, ready to be send to the DB.
 function productFormatIt(product){
-
+console.log("HEEEEEEEEEEEEEEEEEEEYYYYYY");
+console.log(product.product_configurable_fields);
   let productAttributes = [ {
     "Id": 2,
     "Name": "Classification",
