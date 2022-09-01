@@ -4,7 +4,7 @@ const express = require("express")
 const app = express()
 const PORT = 5000;
 const bodyParser = require("body-parser");
-const pgDB = require("./custDBseed.js");
+const pgDB = require("./DBseed.js");
 // Tell express to use body-parser's JSON parsing
 app.use(bodyParser.json())
 
@@ -14,7 +14,7 @@ app.use(bodyParser.json())
 
 let PRODUCT_ARRAY = [];
 //time to wait between webhook pings to send. in milliseconds.
-const TIME_TO_SEND = 10000;
+const TIME_TO_SEND = 3000;
 
 const origPlatform = "Treez";
 /*END GLOBALS */
@@ -181,7 +181,49 @@ async function custFormatIt(object) {
 //returns an array of everything mapped and formatted, ready to be send to the DB.
 function productFormatIt(product){
 
-  //product.data.
+  let productAttributes = [ {
+    "Id": 2,
+    "Name": "Classification",
+    "Position": 0,
+    "Visible": true,
+    "Variation": false,
+    "Options": [product.product_configurable_fields.classification] //product config fields 
+},
+{
+    "Id": 6,
+    "Name": "Flavors",
+    "Position": 1,
+    "Visible": true,
+    "Variation": false,
+    "Options": product.attributes.flavors
+}, 
+{
+    "Id": 8,
+    "Name": "Brand",
+    "Position": 2,
+    "Visible": true,
+    "Variation": false,
+    "Options": [product.product_configurable_fields.brand]  //product config brand
+},
+{
+    "Id": 9,
+    "Name": "Effects",
+    "Position": 3,
+    "Visible": true,
+    "Variation": false,
+    "Options": product.attributes.effects
+},
+{
+    "Id": 10,
+    "Name": "Ingredients",
+    "Position": 4,
+    "Visible": true,
+    "Variation": false,
+    "Options": product.attributes.ingredients
+}
+]
+productAttributes = JSON.stringify(productAttributes);
+
 
   //formatting data for insertion to DB. 
   let itemForDB = [
@@ -189,8 +231,24 @@ function productFormatIt(product){
     product.product_configurable_fields.name,
     product.product_configurable_fields.brand,
     product.pricing.price_sell,
-    product.sellable_quantity
+    product.sellable_quantity,
+    product.product_configurable_fields.amount, //specify UOM somewhere??
+    product.product_configurable_fields.uom,
+    productAttributes,
+    product.total_mg_thc,
+    product.total_mg_cbd,
+    product.total_flower_weight_g,
+    product.subtype,
+    product.category_type,
+    product.product_configurable_fields.size,
+    product.autoupdate_lab_results,
+    product.lab_results,
+    product.above_threshold,
+    product.merged_from_product_ids,
+    product.e_commerce.product_description
   ];
+
+  
 
   return itemForDB;
 

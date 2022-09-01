@@ -1,0 +1,41 @@
+[ {
+        "Id": 2,
+        "Name": "Classification",
+        "Position": 0,
+        "Visible": true,
+        "Variation": false,
+        "Options": ["Indica"] //product config fields 
+    },
+    {
+        "Id": 6,
+        "Name": "Flavors",
+        "Position": 1,
+        "Visible": true,
+        "Variation": false,
+        "Options": ["ALPHA-PINENE", "BLACKBERRY", "BLUEBERRY"]
+    }, 
+    {
+        "Id": 8,
+        "Name": "Brand",
+        "Position": 2,
+        "Visible": true,
+        "Variation": false,
+        "Options": ["BREEZ"]  //product config brand
+    },
+    {
+        "Id": 9,
+        "Name": "Effects",
+        "Position": 3,
+        "Visible": true,
+        "Variation": false,
+        "Options": ["Anxiety", "Happy", "Lazy"]
+    },
+    {
+        "Id": 10,
+        "Name": "Ingredients",
+        "Position": 4,
+        "Visible": true,
+        "Variation": false,
+        "Options": ["Cannabis Oil", "Coconut Oil"]
+    }
+]

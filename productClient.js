@@ -216,12 +216,12 @@ function myFunc() {
 
     setTimeout(() => {console.log("loop start. i is:" + i);
     let topost;
-    if (i%10 === 0 ){
-        topost = { product_id: 'TEST', category_type: 'sushi', product_configurable_fields: {name: "rainbowRoll", brand: "Jens Best"}, pricing: {price_type: "fixed", price_sell: 420} } ;
-    }
-    else {
+    // if (i%10 === 0 ){
+    //     topost = { product_id: 'TEST', category_type: 'sushi', product_configurable_fields: {name: "rainbowRoll", brand: "Jens Best"}, pricing: {price_type: "fixed", price_sell: 420} } ;
+    // }
+    // else {
         topost = prodArr[i%3];
-    }
+   // }
 
         axios.post('http://localhost:5000/product', topost)
         .then(function (response) {

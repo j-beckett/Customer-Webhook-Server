@@ -134,12 +134,19 @@ async function insertProductData(productData){
         //this try block does the actual query to the PG DB
         try{
             const response = await client.query(
-                `INSERT INTO ${PRODUCT_TABLE_NAME} (treez_product_id, \"Name\", brand, \"RegularPrice\", \"StockQuantity\") 
-                VALUES ($1, $2, $3, $4, $5 ) 
-                ON CONFLICT (product_id) 
+                `INSERT INTO ${PRODUCT_TABLE_NAME} (treez_product_id, \"Name\", brand, \"RegularPrice\", \"StockQuantity\", 
+                \"Weight\", \"UoM\", \"Attributes\", total_mg_thc, total_mg_cbd, total_flower_weight_g, subtype, category_type,
+                size, autoupdate_lab_results, lab_results, above_threshold, merged_from_product_ids, \"Description\"
+                ) 
+                VALUES ($1, $2, $3, $4, $5 , $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19) 
+                ON CONFLICT (treez_product_id) 
                 DO UPDATE SET  \"Name\" = EXCLUDED.\"Name\", brand = EXCLUDED.brand, 
-                \"RegularPrice\" = EXCLUDED.\"RegularPrice\", \"StockQuantity\" = EXCLUDED.\"StockQuantity\"
-                
+                \"RegularPrice\" = EXCLUDED.\"RegularPrice\", \"StockQuantity\" = EXCLUDED.\"StockQuantity\" ,
+                \"Weight\" = EXCLUDED.\"Weight\", \"UoM\" = EXCLUDED.\"UoM\", total_mg_thc = EXCLUDED.total_mg_thc,
+                total_mg_cbd = EXCLUDED.total_mg_cbd, total_flower_weight_g = EXCLUDED.total_flower_weight_g, subtype = EXCLUDED.subtype,
+                category_type = EXCLUDED.category_type, size = EXCLUDED.size, autoupdate_lab_results = EXCLUDED.autoupdate_lab_results,
+                lab_results = EXCLUDED.lab_results, above_threshold = EXCLUDED.above_threshold, merged_from_product_ids = EXCLUDED.merged_from_product_ids,
+                \"Description\" = EXCLUDED.\"Description\"
                 ` ,
                 productData
             );
