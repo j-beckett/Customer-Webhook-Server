@@ -187,8 +187,8 @@ console.log(product.product_configurable_fields);
     "Name": "Classification",
     "Position": 0,
     "Visible": true,
-    "Variation": false,
-    "Options": [product.product_configurable_fields.classification] //product config fields 
+    "Variation": false
+    //"Options": [product.product_configurable_fields.classification] //product config fields 
 },
 {
     "Id": 6,
@@ -341,7 +341,7 @@ app.post("/product" , (req, res) => {
   console.log(incomingProductID);
 
   //full customer log//
-  console.log(req.body.data) //
+  //console.log(req.body.data) //
 
   let matchFound = false;
 
