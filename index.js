@@ -352,7 +352,7 @@ app.post("/product" , (req, res) => {
   if (PRODUCT_ARRAY.length === 0){
     console.log("Array empty. Adding item to arr");
 
-    let timeID = returnNewTimeID(req.body); 
+    let timeID = returnNewTimeID(req.body.data); 
     let obj = {"id": incomingProductID, "timeoutID": timeID};
     PRODUCT_ARRAY.push(obj);
   }
