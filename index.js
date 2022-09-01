@@ -224,7 +224,7 @@ console.log(product.product_configurable_fields);
 }
 ]
 productAttributes = JSON.stringify(productAttributes);
-
+const lab_results = JSON.stringify(product.lab_results);
 
   //formatting data for insertion to DB. 
   let itemForDB = [
@@ -243,7 +243,7 @@ productAttributes = JSON.stringify(productAttributes);
     product.category_type,
     product.product_configurable_fields.size,
     product.autoupdate_lab_results,
-    product.lab_results,
+    lab_results,
     product.above_threshold,
     product.merged_from_product_ids,
     product.e_commerce.product_description
