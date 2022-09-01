@@ -346,7 +346,7 @@ app.post("/product" , (req, res) => {
   //full customer log//
   //console.log(req.body.data) //
 
-  let matchFound = false;git 
+  let matchFound = false;
 
   //array is empty - add the first item there
   if (PRODUCT_ARRAY.length === 0){
