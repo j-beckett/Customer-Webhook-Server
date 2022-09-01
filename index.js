@@ -338,6 +338,9 @@ try{
 //
 app.post("/product" , (req, res) => {
   let incomingProductID = req.body.product_id;
+
+  console.log("IMPORTANT");
+  console.log(req.body);
   console.log(incomingProductID);
 
   //full customer log//
