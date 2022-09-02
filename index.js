@@ -296,7 +296,7 @@ productCategories = JSON.stringify(productCategories);
     (product.product_configurable_fields.subtype).toLowerCase()
   ];
 
-  
+  //hmmm
 
   return itemForDB;
 
