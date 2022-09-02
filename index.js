@@ -235,12 +235,6 @@ productAttributes = JSON.stringify(productAttributes);
 // PRE-PACK-FLOWER
 
 //formatting for Categories Column
-let productSlug = product.category_type;
-
-//remove whitespace, replace with a dash, covert to lower
-productSlug = productSlug.replace(/\s/g, '-');
-productSlug = productSlug.toLowerCase();
-
 let productHighCat = product.category_type;
 
 productHighCat = productHighCat.replace(/\s/g, '-');
@@ -252,9 +246,14 @@ let productCategories = [
   }
 ];
 
+let productSlug;
 //combined if there is a subtype
 if (product.product_configurable_fields.subtype != null){
-  productSlug = `${product.product_configurable_fields.subtype}-${product.category_type}`;
+  productSlug = `${product.product_configurable_fields.subtype}-${productHighCat}`;
+
+  //remove whitespace, replace with a dash, covert to lower
+  productSlug = productSlug.replace(/\s/g, '-');
+  productSlug = productSlug.toLowerCase();
 
   productCategories.push({ 
     "Slug": productSlug
