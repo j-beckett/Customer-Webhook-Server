@@ -291,7 +291,6 @@ productCategories = JSON.stringify(productCategories);
     product.above_threshold,
     product.merged_from_product_ids,
     product.e_commerce.product_description,
-    productCategories,
     (product.category_type).toLowerCase(),
     (product.product_configurable_fields.subtype).toLowerCase()
   ];
