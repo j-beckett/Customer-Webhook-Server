@@ -224,7 +224,31 @@ console.log(product.product_configurable_fields);
 }
 ]
 productAttributes = JSON.stringify(productAttributes);
-//const lab_results = JSON.stringify(product.lab_results);
+
+
+
+//NAMING CONVENTIONS FOR CATEGORIES
+// Sub category name - High cat name 
+// Subtype-category_type
+// Ex;  
+// CAPSULE-PILL
+// PRE-PACK-FLOWER
+
+//formatting for Categories Column
+let productSlug = product.category_type;
+if (product.product_configurable_fields.subtype != null){
+  productSlug = `${product_configurable_fields.subtype}-${product.category_type}`;
+}
+
+productSlug = toLowerCase(productSlug);
+
+let productCategories = [
+  {
+    "Name": product.category_type, 
+    "Slug": productSlug
+  }
+];
+productCategories = JSON.stringify(productCategories);
 
   //formatting data for insertion to DB. 
   let itemForDB = [
@@ -246,7 +270,8 @@ productAttributes = JSON.stringify(productAttributes);
     product.lab_results,
     product.above_threshold,
     product.merged_from_product_ids,
-    product.e_commerce.product_description
+    product.e_commerce.product_description,
+    productCategories
   ];
 
   
