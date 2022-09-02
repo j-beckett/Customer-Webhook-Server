@@ -236,19 +236,31 @@ productAttributes = JSON.stringify(productAttributes);
 
 //formatting for Categories Column
 let productSlug = product.category_type;
-if (product.product_configurable_fields.subtype != null){
-  productSlug = `${product.product_configurable_fields.subtype}-${product.category_type}`;
-}
 
+//remove whitespace, replace with a dash, covert to lower
 productSlug = productSlug.replace(/\s/g, '-');
 productSlug = productSlug.toLowerCase();
 
+let productHighCat = product.category_type;
+
+productHighCat = productHighCat.replace(/\s/g, '-');
+productHighCat = productHighCat.toLowerCase();
+
 let productCategories = [
-  {
-    "Name": product.category_type, 
-    "Slug": productSlug
+  { 
+    "Slug": productHighCat
   }
 ];
+
+//combined if there is a subtype
+if (product.product_configurable_fields.subtype != null){
+  productSlug = `${product.product_configurable_fields.subtype}-${product.category_type}`;
+
+  productCategories.push({ 
+    "Slug": productSlug
+  });
+}
+
 productCategories = JSON.stringify(productCategories);
 
   //formatting data for insertion to DB. 
