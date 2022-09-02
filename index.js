@@ -179,16 +179,22 @@ async function custFormatIt(object) {
 
 
 //returns an array of everything mapped and formatted, ready to be send to the DB.
+//lots of formatting for the "special" cols happen in this function also. Attributes and Categories. 
+
+
 function productFormatIt(product){
-console.log("HEEEEEEEEEEEEEEEEEEEYYYYYY");
-console.log(product.product_configurable_fields);
+//console.log("HEEEEEEEEEEEEEEEEEEEYYYYYY");
+//console.log(product.product_configurable_fields);
+
+//all hardcoded values with options filled in from API data 
+//START attributes format //
   let productAttributes = [ {
     "Id": 2,
     "Name": "Classification",
     "Position": 0,
     "Visible": true,
-    "Variation": false
-    //"Options": [product.product_configurable_fields.classification] //product config fields 
+    "Variation": false,
+    "Options": [product.product_configurable_fields.classification] //product config fields 
 },
 {
     "Id": 6,
@@ -225,7 +231,7 @@ console.log(product.product_configurable_fields);
 ]
 productAttributes = JSON.stringify(productAttributes);
 
-
+// END attributes format // 
 
 //NAMING CONVENTIONS FOR CATEGORIES
 // Sub category name - High cat name 
@@ -234,7 +240,7 @@ productAttributes = JSON.stringify(productAttributes);
 // CAPSULE-PILL
 // PRE-PACK-FLOWER
 
-//formatting for Categories Column
+//formatting for Categories Column //
 let productHighCat = product.category_type;
 
 productHighCat = productHighCat.replace(/\s/g, '-');
@@ -262,6 +268,8 @@ if (product.product_configurable_fields.subtype != null){
 
 productCategories = JSON.stringify(productCategories);
 
+//END formatting for Categories Column //
+
   //formatting data for insertion to DB. 
   let itemForDB = [
     product.product_id,
@@ -283,7 +291,9 @@ productCategories = JSON.stringify(productCategories);
     product.above_threshold,
     product.merged_from_product_ids,
     product.e_commerce.product_description,
-    productCategories
+    productCategories,
+    (product.category_type).toLowerCase(),
+    (product.product_configurable_fields.subtype).toLowerCase()
   ];
 
   
@@ -367,7 +377,7 @@ try{
   }
 });
 
-//ALL TIMER LOGIC IS IN HERE! //
+//ALL TIMER LOGIC IS BELOW HERE! //
 /*   This timer logic exists because Treez sends data to the webhook anytime any field is touched. 
   Therefore, this endpoint will likely recieve 100's of requests in a matter of seconds. 
   Time to Send Can be adjusted by:

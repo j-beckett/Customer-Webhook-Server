@@ -137,9 +137,9 @@ async function insertProductData(productData){
             const response = await client.query(
                 `INSERT INTO ${PRODUCT_TABLE_NAME} (treez_product_id, \"Name\", brand, \"RegularPrice\", \"StockQuantity\", 
                 \"Weight\", \"UoM\", \"Attributes\", total_mg_thc, total_mg_cbd, total_flower_weight_g, subtype, category_type,
-                size, autoupdate_lab_results, lab_results, above_threshold, merged_from_product_ids, \"Description\", \"Categories\"
+                size, autoupdate_lab_results, lab_results, above_threshold, merged_from_product_ids, \"Description\", treez_category, treez_subtype
                 ) 
-                VALUES ($1, $2, $3, $4, $5 , $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20) 
+                VALUES ($1, $2, $3, $4, $5 , $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21) 
                 ON CONFLICT (treez_product_id) 
                 DO UPDATE SET  \"Name\" = EXCLUDED.\"Name\", brand = EXCLUDED.brand, 
                 \"RegularPrice\" = EXCLUDED.\"RegularPrice\", \"StockQuantity\" = EXCLUDED.\"StockQuantity\" ,
