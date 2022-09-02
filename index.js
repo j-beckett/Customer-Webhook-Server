@@ -240,6 +240,7 @@ if (product.product_configurable_fields.subtype != null){
   productSlug = `${product.product_configurable_fields.subtype}-${product.category_type}`;
 }
 
+productSlug = productSlug.replace(/\s/g, '-');
 productSlug = productSlug.toLowerCase();
 
 let productCategories = [
