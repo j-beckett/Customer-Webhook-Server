@@ -237,7 +237,7 @@ productAttributes = JSON.stringify(productAttributes);
 //formatting for Categories Column
 let productSlug = product.category_type;
 if (product.product_configurable_fields.subtype != null){
-  productSlug = `${product_configurable_fields.subtype}-${product.category_type}`;
+  productSlug = `${product.product_configurable_fields.subtype}-${product.category_type}`;
 }
 
 productSlug = toLowerCase(productSlug);
